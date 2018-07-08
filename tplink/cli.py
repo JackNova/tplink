@@ -1,16 +1,21 @@
 # -*- coding: utf-8 -*-
-
 """Console script for tplink."""
 import sys
 import click
-
+from tplink import TpLinkClient
+import json
 
 @click.command()
-def main(args=None):
+@click.option('--host', default="192.168.1.1", help='Router ip address')
+@click.option(
+    '--password', prompt='Password', help='The administrator account password')
+@click.option(
+    '--username', default=None, help='The administrator account username')
+def main(host, password, username):
     """Console script for tplink."""
-    click.echo("Replace this message by putting your code into "
-               "tplink.cli.main")
-    click.echo("See click documentation at http://click.pocoo.org/")
+    client = TpLinkClient(password)
+    devices = client.get_connected_devices()
+    click.echo(json.dumps(devices, indent=4))
     return 0
 
 
