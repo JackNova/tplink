@@ -1,29 +1,21 @@
-# Config file for automatic testing at travis-ci.org
-
 language: python
 python:
-  - 3.6
-  - 3.5
-  - 3.4
-  - 2.7
-
-# Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+- 3.6
+- 3.5
+- 3.4
+- 2.7
 install: pip install -U tox-travis
-
-# Command to run tests, e.g. python setup.py test
 script: tox
-
-# Assuming you have installed the travis-ci CLI tool, after you
-# create the Github repo and add it to Travis, run the
-# following command to finish PyPI deployment setup:
-# $ travis encrypt --add deploy.password
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
   user: jacknova
   password:
-    secure: PLEASE_REPLACE_ME
+    secure: DfZj/oqHmH4VfO9vODeAI+JFnhQlQwLJmulD46KYsH2xwNrgOXBZolZxvQc81ygSD/kF+mofTofekbd2npDc39DCS66DbIgC7qbBwp1IZWtBmTR3JUyfDkhJ+HBKkKTJL3hzr7legQPBQPkqHzA4M0Vk04V9jlIzeMLpTF23kaZmOG2zIwG0HP443i66iquZmUduTyb4kNMqaW7lQO5pPIHTPUYXBMBPdGr6sw8kZSUR3nspMdE/CICzParaUAgSr/4W4+zA2jK1qxgegRkYGQC4l1BNCEPtrnUqt1q6mpYTJcVr5V8Vh2qLlBwg1p1lIQay8wmrmPZgutfS1VL8eNBC6ErmA0pnJ2dH4MXjRNBwoEa5YkFgarlS1N2XUEdiqW+ftOkD9xx1c8HlSckkxxiQJs+gi4KNjI7zoeT6l8pkVGxI2BLsiLWSnvPQLxJHEeIKWPcJbfkzy92SSkQbns+RiuGmwfEOMsdWbwR7sYNaLsHjhVHyehIx2W/UYdaH8pOraOnSIPXWUzHbL2pCJJjPGQ7h87xySXHZDr/ZwQRX+ZI739pD8vIJ2Pqt2ajToZgHqKiX5bHCYri8HtSEQoAPw8AFnRYmdgVL+28kCx/lnJ2DGTplt87LjoNBh7YHkUBWj/i1ncyM6SqhXUmHARCPwMkmBx3t5MN8qajVIM4=
   on:
     tags: true
     repo: JackNova/tplink
     python: 3.6
+env:
+  global:
+    secure: FjwDWBdBu84u+v1kiU+DKlpPsR+c65azxcd4KQo8zhBuiB3JR3GS2UcsQ9hm2HOdDL0CKgi0ZqUzvSh6S6qAJBeH+i5HgnBJTHkUwxmIE72XMxNiTUutNGE4KtfjqPOlZPC4+ph4bxf2cpmLju+Yxvpn3MitOiQRlh4nIIq5MpUFSrHC4Q9bAgggaRJZ56nLaYVHbsYnyoZAW5T3x+wyMPXbrSVpT3FpbEVPmSLDdb04U4qY0yFnW0xU8GPi3nP7Y4DrkswkA4ID5LdGloS4ZNnm7JYS3rvnOjdLtQw7G3egZW5DEVayN+uwNyHTu35GpF/Yz9ClbNzXUmq2tDNdu7LWJpNNQpKkXCB/ZEfvU4pMSja+Fcod7Auq4kJtF+z5PAYhf5zoPxOLhqzWwkJP17Ua0aFGstfJl5tMu5T6dJ1sMWRHqNT58JBje1OBxpcrcGaqzabeSZTcOeJS96rAwLfgrF3bImZupmcDIQ6tYsDEPpZOMEsia8w+wNbHXNIt51ntsqHntqdzbpVe/egZd70FvCpJ2f7LSI6vOPgQL7RJWQY+3K44HZADJ5BEpIBxC08afAfvwuh6CZyFZVSlyHgeDOs4V4UdPnKZ3eU1KciT4GGqWA4OJ2e5v1w+MttiBrmy6vpGVJZIP7ghMGDvyfujFfO9l435Z74Uw3nqbjA=
