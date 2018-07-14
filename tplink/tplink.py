@@ -1,15 +1,10 @@
 # -*- coding: utf-8 -*-
 """Main module."""
 import base64
-from datetime import datetime
-import hashlib
-import logging
 import re
 
-from aiohttp.hdrs import (ACCEPT, COOKIE, PRAGMA, REFERER, CONNECTION,
-                          KEEP_ALIVE, USER_AGENT, CONTENT_TYPE, CACHE_CONTROL,
-                          ACCEPT_ENCODING, ACCEPT_LANGUAGE)
 import requests
+from aiohttp.hdrs import (CONTENT_TYPE, COOKIE, REFERER)
 
 
 class TpLinkClient(object):
