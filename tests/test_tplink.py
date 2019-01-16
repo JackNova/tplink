@@ -32,4 +32,4 @@ def test_command_line_interface():
     runner = CliRunner()
     result = runner.invoke(cli.main)
     assert result.exit_code == 2
-    assert 'Missing argument "password"' in result.output
+    assert 'Missing argument "PASSWORD"' in result.output
