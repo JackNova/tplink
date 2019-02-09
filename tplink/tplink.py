@@ -44,4 +44,4 @@ class TpLinkClient(object):
 
         mac_addresses = self.parse_macs.findall(page.text)
 
-        return mac_addresses
+        return dict((mac_address, None) for mac_address in mac_addresses)
