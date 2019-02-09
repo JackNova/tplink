@@ -13,7 +13,7 @@ class TpLinkClient(object):
         self.password = password
         self.username = username
         self.parse_macs = re.compile(
-            'MACAddress=([0-9A-F]{2}:[0-9A-F]{2}:[0-9A-F]{2}:' +
+            'associatedDeviceMACAddress=([0-9A-F]{2}:[0-9A-F]{2}:[0-9A-F]{2}:' +
             '[0-9A-F]{2}:[0-9A-F]{2}:[0-9A-F]{2})')
 
         self.parse_names = re.compile('hostName=(.*)')
@@ -27,9 +27,14 @@ class TpLinkClient(object):
         cookie = 'Authorization=Basic {}' \
             .format(b64_encoded_password)
 
-        payload = "[LAN_HOST_ENTRY#0,0,0,0,0,0#0,0,0,0,0,0]0,0\r\n"
+        payload = ("[LAN_WLAN_ASSOC_DEV#0,0,0,0,0,0#1,0,0,0,0,0]0,4\r\n"
+                "AssociatedDeviceMACAddress\r\n"
+                "X_TP_TotalPacketsSent\r\n"
+                "X_TP_TotalPacketsReceived\r\n"
+                "X_TP_HostName\r\n")
+
         page = requests.post(
-            'http://{}/cgi?5'.format(self.host),
+            'http://{}/cgi?6'.format(self.host),
             data=payload,
             headers={
                 REFERER: "http://{}/".format(self.host),
@@ -39,6 +44,5 @@ class TpLinkClient(object):
             timeout=10)
 
         mac_addresses = self.parse_macs.findall(page.text)
-        host_names = self.parse_names.findall(page.text)
 
-        return dict(zip(mac_addresses, host_names))
+        return mac_addresses
