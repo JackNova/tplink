@@ -16,7 +16,6 @@ class TpLinkClient(object):
             'associatedDeviceMACAddress=([0-9A-F]{2}:[0-9A-F]{2}:[0-9A-F]{2}:' +
             '[0-9A-F]{2}:[0-9A-F]{2}:[0-9A-F]{2})')
 
-        self.parse_names = re.compile('hostName=(.*)')
 
     def get_connected_devices(self):
         connection_string = self.password
