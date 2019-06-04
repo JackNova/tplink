@@ -3,6 +3,7 @@
 import base64
 import json
 import re
+import socket
 from urllib.parse import urlparse
 
 import requests
@@ -66,7 +67,7 @@ class TpLinkClient(object):
         current_page = 1
         total_rows = current_page_size + 1
         list_of_devices = {}
-        while current_page * current_page_size <= total_rows:
+        while (current_page - 1) * current_page_size <= total_rows:
             clients_data = {"method": "getGridActiveClients",
                             "params": {"sortOrder": "asc",
                                        "currentPage": current_page,
@@ -79,8 +80,21 @@ class TpLinkClient(object):
                                verify=self.ssl_verify)
             results = res.json()['result']
             total_rows = results['totalRows']
-            list_of_devices.update({data['mac'].replace('-', ':'): data['name']
-                                    for data in results['data']})
+            for data in results['data']:
+                key = data['mac'].replace('-', ':')
+                if not data['name']:
+                    name = ""
+                    try:
+                        fqdn = socket.gethostbyaddr(data['ip'])
+                        name = fqdn[0].split(".")[0]
+                    except socket.herror:
+                        name = ""
+                    if not name:
+                        name = data['mac'].replace("-", "_").lower()
+                else:
+                    name = data['name']
+                list_of_devices[key] = name
+
             current_page += 1
 
         return list_of_devices
