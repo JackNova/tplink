@@ -30,7 +30,8 @@ class TpLinkClient(object):
         if not base_url.netloc:
             return
         base_url = base_url.scheme + "://" + base_url.netloc
-        res = requests.get(base_url, allow_redirects=False)
+        requests.packages.urllib3.disable_warnings()
+        res = requests.get(base_url, allow_redirects=False, verify=self.ssl_verify)
         if 'TPEAP_SESSIONID' not in res.cookies:
             return
         # This seams to be an Omada controller
@@ -41,7 +42,6 @@ class TpLinkClient(object):
         clients_path = "/web/v1/controller?userStore&token="
         current_page_size = 10
 
-        requests.packages.urllib3.disable_warnings()
         session = requests.Session()
         # Get SessionID
         # host variable should includes scheme and port (if not standard)
