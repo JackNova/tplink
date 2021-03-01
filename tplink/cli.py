@@ -16,7 +16,7 @@ from tplink import tplink
     '--username', default=None, help='The administrator account username')
 def main(host, password, username):
     """Console script for tplink."""
-    client = tplink.TpLinkClient(password)
+    client = tplink.TpLinkClient(password, host=host, username=username)
     devices = client.get_connected_devices()
     click.echo(json.dumps(devices, indent=4))
     return 0
